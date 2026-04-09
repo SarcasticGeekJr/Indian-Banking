@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India Banking & Fintech 101 — Revolut Interview Prep</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0b0b10;
+    --surface: #13131a;
+    --surface2: #1c1c26;
+    --border: #252532;
+    --border2: #2e2e40;
+    --accent: #6c5ce7;
+    --accent2: #00cba9;
+    --accent3: #fd9644;
+    --accent4: #ff6b6b;
+    --text: #e2e2ee;
+    --muted: #72728a;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ─── SIDEBAR LAYOUT ─── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border2) transparent;
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  .sidebar-brand {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .brand-title {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .progress-section {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 16.6%;
+  }
+
+  .nav-section {
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .nav-group-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 20px 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+
+  .nav-item.active {
+    background: rgba(108, 92, 231, 0.1);
+    color: var(--text);
+    border-left-color: var(--accent);
+  }
+
+  .nav-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 18px;
+  }
+
+  .nav-item.active .nav-num { color: var(--accent); }
+
+  .nav-text { line-height: 1.3; }
+  .nav-text-main { font-size: 13px; font-weight: 500; }
+  .nav-text-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .nav-item.active .nav-text-sub { color: rgba(226,226,238,0.5); }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: rgba(11,11,16,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar-chapter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .topbar-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .topbar-nav {
+    display: flex;
+    gap: 6px;
+  }
+
+  .topbar-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .topbar-btn:hover { border-color: var(--border2); color: var(--text); }
+  .topbar-btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .topbar-btn.primary:hover { opacity: 0.85; }
+  .topbar-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ─── CHAPTER CONTENT ─── */
+  .chapter { display: none; }
+  .chapter.active { display: block; }
+
+  .chapter-hero {
+    padding: 48px 40px 36px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(108,92,231,0.04) 0%, transparent 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chapter-hero::after {
+    content: attr(data-num);
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--display);
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(108,92,231,0.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .chapter-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .chapter-title {
+    font-family: var(--display);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    max-width: 600px;
+  }
+
+  .chapter-desc {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 560px;
+  }
+
+  .content {
+    padding: 36px 40px 60px;
+    max-width: 860px;
+  }
+
+  /* ─── SECTION ─── */
+  .sec {
+    margin-bottom: 44px;
+  }
+
+  .sec-title {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+  }
+
+  .sec-title::before {
+    content: '';
+    width: 3px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: rgba(226,226,238,0.85);
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 500; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+  /* ─── JARGON BOX ─── */
+  .jbox {
+    background: rgba(108,92,231,0.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .jbox-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .jterm {
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.65;
+    color: rgba(226,226,238,0.8);
+  }
+
+  .jterm:last-child { margin-bottom: 0; }
+
+  .jterm-word {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  /* ─── ANALOGY BOX ─── */
+  .abox {
+    background: rgba(0,203,169,0.05);
+    border: 1px solid rgba(0,203,169,0.2);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .abox-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .abox p { color: rgba(0,203,169,0.85); font-size: 13px; margin-bottom: 0; }
+
+  /* ─── INSIGHT / CALLOUT ─── */
+  .ibox {
+    background: rgba(253,150,68,0.05);
+    border: 1px solid rgba(253,150,68,0.2);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .ibox-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .ibox p { color: rgba(253,200,150,0.9); font-size: 13px; margin-bottom: 0; }
+
+  /* ─── PMM GOLD ─── */
+  .pmm-box {
+    background: rgba(255,107,107,0.05);
+    border: 1px solid rgba(255,107,107,0.2);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .pmm-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent4);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .pmm-box p { color: rgba(255,200,200,0.9); font-size: 13px; margin-bottom: 0; }
+
+  /* ─── TABLE ─── */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--border); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: rgba(226,226,238,0.85);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(108,92,231,0.04); }
+
+  .hl { color: var(--text); font-weight: 500; }
+  .tag-done { font-size: 11px; color: var(--accent2); font-weight: 500; }
+  .tag-future { font-size: 11px; color: var(--muted); }
+  .tag-wip { font-size: 11px; color: var(--accent3); font-weight: 500; }
+
+  /* ─── FLOW ─── */
+  .flow {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .flow-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .fstep {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .fline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .fdot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .fconn {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--accent), rgba(108,92,231,0.15));
+    margin-top: 2px;
+  }
+
+  .fstep:last-child .fconn { display: none; }
+
+  .fcont {
+    padding-bottom: 24px;
+    flex: 1;
+  }
+
+  .fstep:last-child .fcont { padding-bottom: 0; }
+
+  .fcont-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .fcont-sub {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── STATS ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .stat-val {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  /* ─── SUMMARY CARD ─── */
+  .summary-card {
+    background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,203,169,0.05));
+    border: 1px solid rgba(108,92,231,0.25);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 32px;
+  }
+
+  .summary-title {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .summary-list {
+    font-size: 13px;
+    color: rgba(226,226,238,0.7);
+    line-height: 2.2;
+  }
+
+  .summary-list span { display: block; }
+
+  /* ─── CHAPTER NAV FOOTER ─── */
+  .ch-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  .ch-footer-info {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .ch-footer-info strong { color: var(--text); font-weight: 500; }
+
+  .nav-btns { display: flex; gap: 8px; }
+
+  .nav-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .nav-btn:hover { border-color: var(--border2); color: var(--text); }
+
+  .nav-btn.next {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    font-weight: 500;
+  }
+
+  .nav-btn.next:hover { opacity: 0.85; }
+  .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  /* ─── MOBILE NAV ─── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 10px 16px;
+    z-index: 100;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .mobile-nav::-webkit-scrollbar { display: none; }
+
+  .mob-tab {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: var(--sans);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .mob-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .topbar { padding: 12px 20px; }
+    .chapter-hero { padding: 28px 20px 24px; }
+    .chapter-hero::after { display: none; }
+    .content { padding: 24px 20px 80px; }
+    .ch-footer { padding: 16px 20px; }
+    .mobile-nav { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-tag">// Interview Prep</div>
+      <div class="brand-title">India Banking &amp; Fintech 101</div>
+      <div class="brand-sub">Sequential course — built for your Revolut interview</div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Progress</span>
+        <span id="prog-text">1 / 6</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="prog-fill"></div>
+      </div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-group-label">Chapters</div>
+      <button class="nav-item active" onclick="go(0)">
+        <span class="nav-num">01</span>
+        <span class="nav-text">
+          <div class="nav-text-main">Banking Structure</div>
+          <div class="nav-text-sub">Types, history, who owns what</div>
+        </span>
+      </button>
+      <button class="nav-item" onclick="go(1)">
+        <span class="nav-num">02</span>
+        <span class="nav-text">
+          <div class="nav-text-main">RBI &amp; Regulators</div>
+          <div class="nav-text-sub">RBI, SEBI, NPCI, IRDAI</div>
+        </span>
+      </button>
+      <button class="nav-item" onclick="go(2)">
+        <span class="nav-num">03</span>
+        <span class="nav-text">
+          <div class="nav-text-main">Money Movement</div>
+          <div class="nav-text-sub">NEFT, RTGS, IMPS, LRS, forex</div>
+        </span>
+      </button>
+      <button class="nav-item" onclick="go(3)">
+        <span class="nav-num">04</span>
+        <span class="nav-text">
+          <div class="nav-text-main">UPI &amp; India Stack</div>
+          <div class="nav-text-sub">India's payments revolution</div>
+        </span>
+      </button>
+      <button class="nav-item" onclick="go(4)">
+        <span class="nav-num">05</span>
+        <span class="nav-text">
+          <div class="nav-text-main">Fintech &amp; Licenses</div>
+          <div class="nav-text-sub">PPI, NBFC, AD II, the ecosystem</div>
+        </span>
+      </button>
+      <button class="nav-item" onclick="go(5)">
+        <span class="nav-num">06</span>
+        <span class="nav-text">
+          <div class="nav-text-main">Revolut's India Map</div>
+          <div class="nav-text-sub">UK playbook vs India path</div>
+        </span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      Built for Sakthi — Revolut PMM screening prep
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <div class="topbar-chapter" id="tb-ch">Chapter 01</div>
+        <div class="topbar-title" id="tb-title">Banking Structure</div>
+      </div>
+      <div class="topbar-nav">
+        <button class="topbar-btn" id="tb-prev" onclick="go(currentChapter-1)" disabled>← Prev</button>
+        <button class="topbar-btn primary" id="tb-next" onclick="go(currentChapter+1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 1 ═══ -->
+    <div class="chapter active" id="ch0">
+      <div class="chapter-hero" data-num="01">
+        <div class="chapter-label">Chapter 01</div>
+        <div class="chapter-title">The Structure of Indian Banking</div>
+        <div class="chapter-desc">Who the players are, how they're categorised, and why the government owns so many banks.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">The quick history you need</div>
+          <p>Indian banking has three eras. <strong>Before 1969:</strong> mostly private banks, British-era legacy, urban-focused. <strong>1969–1991:</strong> Indira Gandhi's government nationalised 14 major private banks in 1969 and 6 more in 1980, turning them into Public Sector Banks. The goal was to bring banking to rural India. <strong>1991 onwards:</strong> economic liberalisation opened the door for new private banks. HDFC Bank, ICICI Bank, Axis Bank — all entered the market in the 1990s and transformed Indian banking with technology and service quality.</p>
+          <div class="abox">
+            <div class="abox-label">// Analogy</div>
+            <p>Think of 1969 nationalisation like the government taking over all the major restaurants in the country and saying "now we'll make sure food reaches every village." It worked for reach, but private restaurants that entered later are faster, cleaner, and more innovative. Both now coexist.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">The full map of bank types in India</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Type</th><th>What they are</th><th>Examples</th><th>Count (2025)</th></tr>
+              <tr><td class="hl">Public Sector Banks (PSBs)</td><td>Government owns majority stake. Nationwide reach. Politically important.</td><td>SBI, Bank of Baroda, PNB, Canara</td><td>12</td></tr>
+              <tr><td class="hl">Private Sector Banks</td><td>Privately owned. Tech-forward. Better service. Profit-driven.</td><td>HDFC, ICICI, Axis, Kotak, Yes Bank</td><td>21</td></tr>
+              <tr><td class="hl">Foreign Banks</td><td>HQ abroad, branches in India. Serve corporates and HNIs mainly.</td><td>Citi, HSBC, Standard Chartered, DBS</td><td>44</td></tr>
+              <tr><td class="hl">Small Finance Banks (SFBs)</td><td>Serve small borrowers, rural areas, MSMEs. Full banking license but smaller focus.</td><td>AU SFB, Ujjivan, Jana SFB</td><td>11</td></tr>
+              <tr><td class="hl">Payments Banks</td><td>Can accept deposits (up to ₹2 lakh) and do payments. Cannot lend. No credit.</td><td>Airtel Payments Bank, India Post Payments Bank, Jio Payments Bank</td><td>6</td></tr>
+              <tr><td class="hl">Regional Rural Banks (RRBs)</td><td>Serve rural areas. Jointly owned by Centre, State, and a sponsor PSB.</td><td>Prathama UP Gramin Bank, Kerala Gramin Bank</td><td>43</td></tr>
+              <tr><td class="hl">Cooperative Banks</td><td>Owned by members. Serve farmers and local communities. Dual regulation (RBI + State).</td><td>Saraswat Bank, Cosmos Bank</td><td>1,457+ UCBs</td></tr>
+              <tr><td class="hl">NBFCs</td><td>Financial companies that lend money but are not banks. Cannot accept savings deposits.</td><td>Bajaj Finance, HDFC Ltd, Muthoot Finance</td><td>9,300+</td></tr>
+            </table>
+          </div>
+
+          <div class="jbox">
+            <div class="jbox-label">// Jargon</div>
+            <div class="jterm"><span class="jterm-word">Scheduled Bank</span> — A bank listed in the Second Schedule of the RBI Act, 1934. Meets minimum capital requirements. Can borrow from RBI and is part of the formal clearing system. 124 of 128 commercial banks are scheduled.</div>
+            <div class="jterm"><span class="jterm-word">Nationalisation</span> — Government taking ownership and control of private companies. In 1969 and 1980, India nationalised its major private banks to make banking accessible to rural populations.</div>
+            <div class="jterm"><span class="jterm-word">PSB (Public Sector Bank)</span> — A bank where the central government owns more than 50% of the equity. SBI alone has ~25% market share in deposits and advances.</div>
+            <div class="jterm"><span class="jterm-word">NBFC (Non-Banking Financial Company)</span> — A company that provides financial services like loans but does not hold a banking license. Cannot accept demand deposits or savings accounts from the public. Examples: Bajaj Finance, Muthoot Finance.</div>
+            <div class="jterm"><span class="jterm-word">Payments Bank</span> — A special RBI-licensed entity that can receive deposits and do payments but cannot lend. Think of it as a very restricted bank. Revolut's closest Indian equivalent before it got its PPI license.</div>
+            <div class="jterm"><span class="jterm-word">MSME</span> — Micro, Small and Medium Enterprises. Small businesses. A huge segment of India's economy that banks traditionally underserved — which is why NBFCs and SFBs exist.</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">SBI — why it dominates everything</div>
+          <p>State Bank of India is not just India's largest bank — it is one of the largest banks in the world. It has over 22,000 branches, 58,000+ ATMs, and holds approximately 25% of all bank deposits and loans in India. It was formed in 1955 from the Imperial Bank of India, which itself came from three Presidency Banks dating back to 1806.</p>
+          <p>When people say "my salary account is in SBI," that's the primary account relationship Revolut needs to eventually displace. That's the scale of the incumbent problem.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Deposit insurance in India — DICGC</div>
+          <p>India has deposit insurance through <strong>DICGC</strong> — Deposit Insurance and Credit Guarantee Corporation, a subsidiary of RBI. If a licensed bank collapses, each depositor gets back up to <strong>₹5 lakh</strong> per bank.</p>
+          <p>This is important for Revolut: their PPI wallet is not DICGC-insured. Your money is safeguarded but not insured. As and when Revolut applies for a full banking license in India, DICGC protection becomes a major trust and marketing lever.</p>
+          <div class="jbox">
+            <div class="jbox-label">// Jargon</div>
+            <div class="jterm"><span class="jterm-word">DICGC</span> — Deposit Insurance and Credit Guarantee Corporation. India's deposit insurance scheme. Protects up to ₹5 lakh per depositor per bank. Equivalent to FSCS in the UK.</div>
+            <div class="jterm"><span class="jterm-word">KYC (Know Your Customer)</span> — Mandatory identity verification all financial institutions must perform before opening accounts. In India, Aadhaar + PAN is the standard KYC combination. Revolut India is fully Aadhaar-KYC compliant.</div>
+            <div class="jterm"><span class="jterm-word">HNI (High Net Worth Individual)</span> — A customer with significant investable wealth. Foreign banks in India primarily serve HNIs and large corporates rather than retail customers.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 1 of 6</strong> — Banking Structure</div>
+        <div class="nav-btns">
+          <button class="nav-btn" disabled>← Previous</button>
+          <button class="nav-btn next" onclick="go(1)">RBI &amp; Regulators →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 2 ═══ -->
+    <div class="chapter" id="ch1">
+      <div class="chapter-hero" data-num="02">
+        <div class="chapter-label">Chapter 02</div>
+        <div class="chapter-title">The Regulators — Who Controls What</div>
+        <div class="chapter-desc">India's financial system has multiple regulators, each owning a specific slice. Confusing them is a common mistake.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">The regulatory map</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Regulator</th><th>Full Name</th><th>Controls</th></tr>
+              <tr><td class="hl">RBI</td><td>Reserve Bank of India</td><td>Banks, NBFCs, payments systems, foreign exchange, currency supply, monetary policy</td></tr>
+              <tr><td class="hl">SEBI</td><td>Securities and Exchange Board of India</td><td>Stock exchanges, mutual funds, stockbrokers, IPOs, investor protection</td></tr>
+              <tr><td class="hl">IRDAI</td><td>Insurance Regulatory and Development Authority of India</td><td>Insurance companies — life, general, health</td></tr>
+              <tr><td class="hl">PFRDA</td><td>Pension Fund Regulatory and Development Authority</td><td>Pension funds, NPS (National Pension System)</td></tr>
+              <tr><td class="hl">NPCI</td><td>National Payments Corporation of India</td><td>UPI, RuPay cards, NEFT/RTGS, IMPS, FASTag — all payment infrastructure</td></tr>
+              <tr><td class="hl">FEMA / ED</td><td>Foreign Exchange Management Act / Enforcement Directorate</td><td>Cross-border money movement rules. How foreign companies operate financially in India.</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">RBI in depth — what it actually does</div>
+          <p>The Reserve Bank of India, established April 1, 1935, is India's central bank. It is owned by the Government of India (Ministry of Finance). It is both the country's economic brain and the banking industry's traffic police.</p>
+          <p><strong>1. Issues currency</strong> — All ₹10 to ₹500 notes are printed and authorised by RBI. Coins are issued by the government separately.</p>
+          <p><strong>2. Sets monetary policy</strong> — Controls interest rates through repo rate, CRR, and SLR to manage inflation and economic growth.</p>
+          <p><strong>3. Regulates banks</strong> — Licenses banks, sets capital requirements, audits them, and cancels licenses if they fail (as it did with Paytm Payments Bank in 2024).</p>
+          <p><strong>4. Manages foreign exchange</strong> — Controls how money flows in and out of India under FEMA. Any company like Revolut moving money across borders must comply.</p>
+          <p><strong>5. Banker to banks</strong> — Commercial banks keep accounts with RBI. When a bank is in crisis, RBI lends to it as "lender of last resort."</p>
+          <p><strong>6. Banker to government</strong> — Manages India's debt, government accounts, and foreign exchange reserves.</p>
+
+          <div class="jbox">
+            <div class="jbox-label">// Key RBI rate jargon</div>
+            <div class="jterm"><span class="jterm-word">Repo Rate</span> — The rate at which RBI lends money to commercial banks overnight. When RBI raises this, banks borrow more expensively → they raise their own lending rates → home loans and personal loans get costlier → people borrow less → inflation cools. Currently 6.25%.</div>
+            <div class="jterm"><span class="jterm-word">Reverse Repo Rate</span> — The rate RBI pays banks when they park excess money with RBI. When banks prefer parking money with RBI over lending, money flow in the economy slows.</div>
+            <div class="jterm"><span class="jterm-word">CRR (Cash Reserve Ratio)</span> — A % of a bank's deposits that it must keep with RBI as cash. Banks cannot lend this money. Currently ~4%. RBI raises CRR to pull money out of the system and reduce inflation.</div>
+            <div class="jterm"><span class="jterm-word">SLR (Statutory Liquidity Ratio)</span> — A % of deposits that banks must keep in liquid assets (government bonds, gold). Not with RBI, but cannot be lent out either. Currently ~18%.</div>
+            <div class="jterm"><span class="jterm-word">MPC (Monetary Policy Committee)</span> — The 6-member committee (3 RBI + 3 external) that decides the repo rate every 2 months. Created in 2016. Sets the cost of money in India.</div>
+            <div class="jterm"><span class="jterm-word">Inflation (CPI)</span> — Consumer Price Index. Measures how much everyday goods cost vs. last year. RBI's primary mandate is keeping CPI inflation around 4% (+/- 2%). When inflation rises, RBI raises rates.</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">NPCI — the unsung hero of Indian payments</div>
+          <p>NPCI (National Payments Corporation of India) is not a bank and not a regulator. It's a non-profit infrastructure company set up jointly by RBI and the Indian Banks' Association. It owns and operates the payment rails that make India's digital payments work.</p>
+          <p>NPCI built and runs: <strong>UPI</strong> (real-time payments), <strong>RuPay</strong> (India's homegrown card network), <strong>NEFT</strong> and <strong>RTGS</strong> (bank transfer systems), <strong>IMPS</strong> (instant bank-to-bank transfers), <strong>FASTag</strong> (highway toll payments), and <strong>NACH</strong> (automated recurring payment mandates).</p>
+          <div class="abox">
+            <div class="abox-label">// Analogy</div>
+            <p>NPCI is like NHAI (National Highways Authority of India) — it built the roads. All the cars (PhonePe, Google Pay, Paytm, banks, Revolut) just drive on NPCI's roads. The roads are free and open to everyone, which is why India's payments are so competitive and cheap.</p>
+          </div>
+          <div class="jbox">
+            <div class="jbox-label">// Jargon</div>
+            <div class="jterm"><span class="jterm-word">NPCI</span> — National Payments Corporation of India. Non-profit that owns India's payment infrastructure. Set up by RBI + IBA in 2008.</div>
+            <div class="jterm"><span class="jterm-word">RuPay</span> — India's own card payment network, like Visa or Mastercard but Indian. Created by NPCI. Lower cost for merchants. Used in ~60% of debit cards in India. Mandated for Jan Dhan accounts.</div>
+            <div class="jterm"><span class="jterm-word">FEMA</span> — Foreign Exchange Management Act. The law governing all cross-border money movement in India. Revolut's AD II license is a FEMA license.</div>
+            <div class="jterm"><span class="jterm-word">AD II License</span> — Authorised Dealer Category II License. Allows a company to offer foreign exchange services (forex cards, remittances) in India. Revolut obtained this in 2022.</div>
+            <div class="jterm"><span class="jterm-word">IBA</span> — Indian Banks' Association. The representative body of all Indian banks. Co-founder of NPCI with RBI.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 2 of 6</strong> — RBI &amp; Regulators</div>
+        <div class="nav-btns">
+          <button class="nav-btn" onclick="go(0)">← Banking Structure</button>
+          <button class="nav-btn next" onclick="go(2)">Money Movement →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 3 ═══ -->
+    <div class="chapter" id="ch2">
+      <div class="chapter-hero" data-num="03">
+        <div class="chapter-label">Chapter 03</div>
+        <div class="chapter-title">How Money Moves in India</div>
+        <div class="chapter-desc">NEFT, RTGS, IMPS, UPI — what each one is, when it's used, and how they compare. Plus forex and LRS.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">The four bank transfer systems</div>
+          <p>Before UPI, there were three systems for moving money between bank accounts. They still coexist today, each serving a different purpose.</p>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>System</th><th>Full Name</th><th>Speed</th><th>Amount Limit</th><th>Best For</th></tr>
+              <tr><td class="hl">NEFT</td><td>National Electronic Funds Transfer</td><td>30-min batches, 24/7</td><td>No upper limit</td><td>Routine transfers, EMIs, vendor payments</td></tr>
+              <tr><td class="hl">RTGS</td><td>Real-Time Gross Settlement</td><td>Instant (real-time)</td><td>Min ₹2 lakh</td><td>Large value — property, corporate transfers</td></tr>
+              <tr><td class="hl">IMPS</td><td>Immediate Payment Service</td><td>Instant, 24/7/365</td><td>Up to ₹5 lakh</td><td>Instant transfers without using UPI app</td></tr>
+              <tr><td class="hl">UPI</td><td>Unified Payments Interface</td><td>Instant, 24/7/365</td><td>Up to ₹1–2 lakh</td><td>Everything — P2P, P2M, daily payments</td></tr>
+            </table>
+          </div>
+
+          <div class="jbox">
+            <div class="jbox-label">// Jargon</div>
+            <div class="jterm"><span class="jterm-word">NEFT</span> — Works in half-hourly batches. No minimum or maximum amount. Free for online transfers. Used when speed is not critical — e.g. paying a vendor.</div>
+            <div class="jterm"><span class="jterm-word">RTGS</span> — Every transaction settled individually and instantly in RBI's books. Minimum ₹2 lakh. Used for high-value transactions — real estate, corporate payments.</div>
+            <div class="jterm"><span class="jterm-word">IMPS</span> — Instant bank-to-bank transfer. Predates UPI. Still widely used for salary/vendor payments up to ₹5 lakh via banking apps.</div>
+            <div class="jterm"><span class="jterm-word">NACH</span> — National Automated Clearing House. Used for recurring automatic debits — EMI payments, insurance premiums, utility bills. You sign a NACH mandate and it auto-debits every month. India's version of a standing order.</div>
+            <div class="jterm"><span class="jterm-word">IFSC Code</span> — Indian Financial System Code. 11-character identifier for each bank branch. Required for NEFT, RTGS, IMPS transfers. Format: HDFC0001234 — first 4 = bank name, 5th = 0, last 6 = branch code. UPI made this irrelevant for daily use.</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Foreign exchange in India — the LRS framework</div>
+          <p>In India, you cannot freely send unlimited money abroad. RBI regulates cross-border money movement under <strong>FEMA</strong>. The key scheme for retail customers is <strong>LRS (Liberalised Remittance Scheme)</strong> — Indian residents can send up to <strong>$250,000 per financial year</strong> abroad for permitted purposes: education, travel, investments, gifts.</p>
+          <p>Banks and licensed money changers (AD II license holders like Revolut) facilitate these remittances. When a student going abroad loads a forex card with USD or GBP, they're using LRS. Revolut's India forex card operates entirely within this framework.</p>
+          <div class="ibox">
+            <div class="ibox-label">// TCS on LRS — a PMM opportunity</div>
+            <p>Since October 2023, the government charges 20% TCS (Tax Collected at Source) on LRS remittances above ₹7 lakh per year for most purposes (travel, investments). This made international spending significantly more expensive and controversial. While TCS is refundable via tax filing, users feel the immediate cash flow impact. Revolut India's messaging around "transparent, lower-cost international spending" is directly relevant here.</p>
+          </div>
+
+          <div class="jbox">
+            <div class="jbox-label">// Jargon</div>
+            <div class="jterm"><span class="jterm-word">LRS (Liberalised Remittance Scheme)</span> — RBI scheme allowing Indian residents to send up to $250,000 abroad per year for permitted purposes. Revolut's international FX card operates under LRS.</div>
+            <div class="jterm"><span class="jterm-word">TCS (Tax Collected at Source)</span> — A tax the seller collects from the buyer at the time of sale, and deposits with the government. On LRS remittances above ₹7 lakh, the rate is 20% for most purposes. Refundable via ITR but reduces immediate liquidity.</div>
+            <div class="jterm"><span class="jterm-word">Forex Card</span> — A prepaid card loaded with foreign currency (USD, GBP, EUR) that you use abroad. Sold by banks and AD II holders. Revolut's international card is this product — differentiated by its interbank FX rate with no weekend markup.</div>
+            <div class="jterm"><span class="jterm-word">Remittances</span> — Money sent between countries. India is the world's largest remittance recipient (Indians abroad sent $129B home in 2024). Outward remittances (Indians sending money abroad — students, investors, travelers) is also massive and growing.</div>
+            <div class="jterm"><span class="jterm-word">AD II (Authorised Dealer Category II)</span> — RBI license allowing non-banks to offer forex cards and cross-border remittances. Revolut India has held this since 2022 — it's what enabled the international FX card before the PPI license.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 3 of 6</strong> — Money Movement</div>
+        <div class="nav-btns">
+          <button class="nav-btn" onclick="go(1)">← RBI &amp; Regulators</button>
+          <button class="nav-btn next" onclick="go(3)">UPI &amp; India Stack →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 4 ═══ -->
+    <div class="chapter" id="ch3">
+      <div class="chapter-hero" data-num="04">
+        <div class="chapter-label">Chapter 04</div>
+        <div class="chapter-title">UPI &amp; India Stack — India's Payment Revolution</div>
+        <div class="chapter-desc">UPI is the most important thing to understand about Indian fintech. Nothing else comes close.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">What UPI is and why it's extraordinary</div>
+          <p>UPI (Unified Payments Interface) was launched in April 2016 by NPCI. It's a real-time payment system that links your bank account to your mobile number — letting you send or receive money instantly, 24/7/365, for free.</p>
+          <p>Before UPI, to send money to a friend you needed their account number, IFSC code, had to add them as a beneficiary (wait 30 minutes for verification), then transfer. The process took at least an hour. After UPI: type their phone number. Done. Money lands in 2 seconds.</p>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val">16.58B</div><div class="stat-lbl">Transactions in Oct 2024 alone</div></div>
+            <div class="stat-card"><div class="stat-val">632</div><div class="stat-lbl">Banks connected to UPI</div></div>
+            <div class="stat-card"><div class="stat-val">49%</div><div class="stat-lbl">Of global real-time payments are UPI</div></div>
+            <div class="stat-card"><div class="stat-val">45%</div><div class="stat-lbl">YoY growth Oct 2023→2024</div></div>
+            <div class="stat-card"><div class="stat-val">₹23.5L Cr</div><div class="stat-lbl">Value processed in Oct 2024</div></div>
+          </div>
+          <div class="abox">
+            <div class="abox-label">// Why UPI is different from Venmo or GPay in the US</div>
+            <p>The US has Venmo. The UK has Faster Payments. But those are private, closed systems. UPI is a public highway that every app can drive on — PhonePe, Google Pay, Paytm, your bank's own app, and now Revolut — all using the same infrastructure, interoperably. No walled gardens. That's what makes it revolutionary and why India accounts for nearly half of all global real-time payments.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">How UPI works — step by step</div>
+          <div class="flow">
+            <div class="flow-label">// What happens when you pay ₹200 to a chai stall via PhonePe</div>
+            <div class="fstep"><div class="fline"><div class="fdot"></div><div class="fconn"></div></div><div class="fcont"><div class="fcont-title">You open PhonePe and scan the stall's QR code</div><div class="fcont-sub">PhonePe is a TPAP (Third Party App Provider) on the UPI network</div></div></div>
+            <div class="fstep"><div class="fline"><div class="fdot"></div><div class="fconn"></div></div><div class="fcont"><div class="fcont-title">Enter ₹200 and your UPI PIN (4 or 6 digits)</div><div class="fcont-sub">UPI PIN is set during setup — it authenticates every transaction</div></div></div>
+            <div class="fstep"><div class="fline"><div class="fdot"></div><div class="fconn"></div></div><div class="fcont"><div class="fcont-title">PhonePe sends payment request to NPCI via UPI APIs</div><div class="fcont-sub">NPCI routes to your bank (e.g. SBI) to debit your account</div></div></div>
+            <div class="fstep"><div class="fline"><div class="fdot"></div><div class="fconn"></div></div><div class="fcont"><div class="fcont-title">SBI verifies PIN, debits ₹200 from your account</div><div class="fcont-sub">Sends confirmation back through NPCI</div></div></div>
+            <div class="fstep"><div class="fline"><div class="fdot"></div><div class="fconn"></div></div><div class="fcont"><div class="fcont-title">NPCI credits ₹200 to the stall's bank account</div><div class="fcont-sub">Voice box announces "Do sau rupees received." Entire process: under 2 seconds.</div></div></div>
+          </div>
+          <div class="jbox">
+            <div class="jbox-label">// UPI Jargon</div>
+            <div class="jterm"><span class="jterm-word">UPI ID / VPA (Virtual Payment Address)</span> — Your unique payment address on UPI. Like an email address for money. Example: 9876543210@paytm or sakthi@okicici. You share this instead of your bank account number.</div>
+            <div class="jterm"><span class="jterm-word">TPAP (Third Party App Provider)</span> — Apps that provide a UPI interface without being banks themselves. PhonePe, Google Pay, Paytm are TPAPs. They use NPCI's rails but don't hold the money — your bank does.</div>
+            <div class="jterm"><span class="jterm-word">P2P (Person to Person)</span> — Sending money directly to another person. Friend, family, etc.</div>
+            <div class="jterm"><span class="jterm-word">P2M (Person to Merchant)</span> — Paying a shop, restaurant, or business. P2M now exceeds P2P on UPI — 62% of transactions are P2M as of 2024. This is where the market battle is.</div>
+            <div class="jterm"><span class="jterm-word">QR Code</span> — The square barcode merchants display. Customers scan to pay. India has over 500 million UPI-enabled QR codes deployed — more than most countries' total card terminals.</div>
+            <div class="jterm"><span class="jterm-word">UPI Lite</span> — Offline UPI for small transactions (up to ₹500) that works without internet. Uses a local wallet on your phone. Launched to solve low-connectivity areas.</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">The UPI market battle Revolut is entering</div>
+          <p>Three players dominate UPI: <strong>PhonePe</strong> (~47% market share), <strong>Google Pay</strong> (~37%), and <strong>Paytm</strong> (~8%). Together ~92%. NPCI imposed a 30% market cap rule to prevent monopoly — but has repeatedly extended the compliance deadline. Effectively, these three have locked up the daily payments habit.</p>
+          <p>This is the wall Revolut faces. Not a technology wall — UPI is open to everyone. A <strong>habit wall</strong>. Indians already have a UPI app they use dozens of times a day. The bar for switching is very high. Revolut cannot compete head-on in daily UPI — it needs to own the global dimension that PhonePe, GPay, and Paytm cannot offer.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">India Stack — the bigger digital infrastructure</div>
+          <p>India Stack is the government's broader digital infrastructure programme. UPI is just one layer. There are four:</p>
+          <p><strong>Presence-less layer — Aadhaar:</strong> India's biometric identity system. 1.4 billion Indians enrolled. Allows instant, paperless identity verification using fingerprint or iris scan. Aadhaar eKYC is how Revolut India verifies customers without physical documents.</p>
+          <p><strong>Paperless layer — DigiLocker:</strong> Digital document storage linked to Aadhaar. PAN card, driving license, degree certificates all stored digitally. Reduces document submission friction.</p>
+          <p><strong>Cashless layer — UPI:</strong> The real-time payments backbone described above.</p>
+          <p><strong>Consent layer — Account Aggregator (AA):</strong> A newer framework allowing customers to securely share their financial data (bank statements, loan history) with other financial institutions — with explicit consent. Enables faster loan approvals and personalised products. India's version of Open Banking.</p>
+          <div class="jbox">
+            <div class="jbox-label">// India Stack jargon</div>
+            <div class="jterm"><span class="jterm-word">Aadhaar</span> — India's 12-digit biometric identity number. Linked to fingerprint and iris scan. 1.4 billion Indians enrolled. Used for bank KYC, SIM activation, government subsidies, tax filing. The foundational identity layer of India Stack.</div>
+            <div class="jterm"><span class="jterm-word">eKYC (Electronic KYC)</span> — Instant identity verification using Aadhaar OTP or biometric. Replaced physical document submission. Allows fintechs to onboard customers in minutes. Critical for Revolut India's onboarding flow.</div>
+            <div class="jterm"><span class="jterm-word">PAN (Permanent Account Number)</span> — 10-character alphanumeric tax identity number issued by Income Tax Department. Required for opening bank accounts, investments, large transactions. Aadhaar + PAN = India's standard KYC.</div>
+            <div class="jterm"><span class="jterm-word">Account Aggregator (AA)</span> — RBI-regulated framework where customers consent to share financial data across institutions. Enables open banking. Credit scoring without traditional bank relationships.</div>
+            <div class="jterm"><span class="jterm-word">JAM Trinity</span> — Jan Dhan (bank accounts) + Aadhaar (identity) + Mobile (connectivity). The three pillars used to bring 500 million unbanked Indians into the formal financial system between 2014–2020.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 4 of 6</strong> — UPI &amp; India Stack</div>
+        <div class="nav-btns">
+          <button class="nav-btn" onclick="go(2)">← Money Movement</button>
+          <button class="nav-btn next" onclick="go(4)">Fintech &amp; Licenses →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 5 ═══ -->
+    <div class="chapter" id="ch4">
+      <div class="chapter-hero" data-num="05">
+        <div class="chapter-label">Chapter 05</div>
+        <div class="chapter-title">Indian Fintech &amp; License Types</div>
+        <div class="chapter-desc">What kinds of fintech exist in India, which licenses enable them, and how Revolut fits the framework.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">India's fintech landscape — scale</div>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val">$25.8B</div><div class="stat-lbl">Total fintech investment attracted</div></div>
+            <div class="stat-card"><div class="stat-val">22</div><div class="stat-lbl">Fintech unicorns in India</div></div>
+            <div class="stat-card"><div class="stat-val">3rd</div><div class="stat-lbl">Largest fintech ecosystem globally</div></div>
+            <div class="stat-card"><div class="stat-val">$2.5T</div><div class="stat-lbl">Digital payments market size (2024)</div></div>
+          </div>
+          <p>India's fintech ecosystem is one of the most developed in the world — paradoxically, because India's traditional banking infrastructure was so weak and so under-serving of most of the population. That gap created enormous demand for digital alternatives, which fintechs filled rapidly from 2016 onward (post-UPI and post-demonetisation).</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">The key fintech license types — all mapped</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>License</th><th>Issued by</th><th>What it allows</th><th>Example holders</th></tr>
+              <tr><td class="hl">Full Banking License</td><td>RBI</td><td>Deposits, loans, all banking services, DICGC insurance</td><td>HDFC, SBI, ICICI, Axis</td></tr>
+              <tr><td class="hl">Small Finance Bank</td><td>RBI</td><td>Full banking but focus on small borrowers and financial inclusion</td><td>AU SFB, Ujjivan, Jana SFB</td></tr>
+              <tr><td class="hl">Payments Bank</td><td>RBI</td><td>Deposits up to ₹2L, payments, no lending whatsoever</td><td>Airtel Payments Bank, India Post PB</td></tr>
+              <tr><td class="hl">PPI License</td><td>RBI</td><td>Issue prepaid wallets and cards with UPI. Cannot hold unlimited deposits.</td><td>Revolut India, MobiKwik, Amazon Pay</td></tr>
+              <tr><td class="hl">NBFC License</td><td>RBI</td><td>Lending only. No savings deposits accepted from public.</td><td>Bajaj Finance, Muthoot, Slice</td></tr>
+              <tr><td class="hl">AD II License</td><td>RBI (FEMA)</td><td>Offer forex cards, cross-border remittances</td><td>Revolut India, Thomas Cook, BookMyForex</td></tr>
+              <tr><td class="hl">Payment Aggregator (PA)</td><td>RBI</td><td>Aggregate payments for merchants online</td><td>Razorpay, PayU, Cashfree</td></tr>
+              <tr><td class="hl">Broker/Investment</td><td>SEBI</td><td>Stock trading, mutual funds, investments</td><td>Zerodha, Groww, Upstox</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">PPI License — what Revolut actually has, in detail</div>
+          <p>A <strong>PPI (Prepaid Payment Instrument)</strong> is exactly what it sounds like — a payment instrument you load money into before spending. Your Ola Money wallet, your Paytm wallet, a gift card — all PPIs. Revolut India can now issue these with full RBI authorisation received April 2025.</p>
+          <p>With its full PPI license, Revolut India can issue prepaid cards (physical and virtual), operate a PPI wallet where customers load and hold money, enable UPI payments from the PPI wallet, and offer the multi-currency forex card alongside the domestic product.</p>
+          <p>What Revolut <strong>cannot</strong> do with just a PPI license: offer savings accounts with interest, lend money (no personal loans, credit cards, EMIs), accept deposits like a bank, or offer DICGC insurance on wallet balances.</p>
+          <div class="ibox">
+            <div class="ibox-label">// The wallet balance cap — a real structural constraint</div>
+            <p>RBI restricts PPI wallet balance to ₹2 lakh maximum. This is too low for salary deposits. A person's monthly salary in a metro city could easily be ₹1–5 lakh — but keeping it in a PPI wallet doesn't make sense because the ₹2L cap creates friction. A full banking license would remove this. This is the single biggest reason Revolut's India roadmap must include a banking license eventually.</p>
+          </div>
+          <div class="jbox">
+            <div class="jbox-label">// PPI Jargon</div>
+            <div class="jterm"><span class="jterm-word">PPI (Prepaid Payment Instrument)</span> — A wallet or card you load money onto before spending. Not a bank account. RBI-licensed. Maximum balance: ₹2 lakh (full KYC). Examples: Paytm wallet, Amazon Pay, PhonePe wallet, now Revolut India wallet.</div>
+            <div class="jterm"><span class="jterm-word">Full KYC PPI</span> — A PPI where the customer has completed full Aadhaar + PAN identity verification. Allows higher limits (₹2 lakh), UPI access, and cash withdrawals. Revolut India requires full KYC.</div>
+            <div class="jterm"><span class="jterm-word">Minimum KYC PPI</span> — A wallet with just a mobile number. Limited to ₹10,000 balance, no cash withdrawals, no P2P transfers. Very restricted — mostly used for quick onboarding in low-bandwidth situations.</div>
+            <div class="jterm"><span class="jterm-word">PPI-UPI Interoperability</span> — RBI mandated in 2022 that PPI wallets must be interoperable with UPI. This means you can pay from your Revolut wallet to any UPI QR code or bank account. Critical for Revolut's daily use case.</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Key Indian fintech segments — the competitive map</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Segment</th><th>Dominant Players</th><th>What They Do</th></tr>
+              <tr><td class="hl">UPI Payments</td><td>PhonePe, Google Pay, Paytm</td><td>P2P and P2M payments on UPI. 92% market share collectively.</td></tr>
+              <tr><td class="hl">Neobanking</td><td>Fi Money, Jupiter, Niyo, Open</td><td>Digital-first bank experiences built on licensed bank partnerships. No independent banking license.</td></tr>
+              <tr><td class="hl">Lending / BNPL</td><td>Bajaj Finance, Slice, LazyPay, KreditBee</td><td>Personal loans, credit lines, EMI financing. NBFC-licensed.</td></tr>
+              <tr><td class="hl">Investments</td><td>Zerodha, Groww, Upstox, Coin</td><td>Stocks, mutual funds, SIPs, ETFs. SEBI-regulated brokers.</td></tr>
+              <tr><td class="hl">Insurance</td><td>Acko, Digit, PolicyBazaar</td><td>Digital insurance — auto, health, travel. IRDAI-regulated.</td></tr>
+              <tr><td class="hl">Forex / Remittances</td><td>Wise, BookMyForex, Thomas Cook, now Revolut</td><td>FX cards and cross-border money transfer. AD II license required.</td></tr>
+            </table>
+          </div>
+          <div class="jbox">
+            <div class="jbox-label">// More fintech jargon</div>
+            <div class="jterm"><span class="jterm-word">CIBIL Score</span> — India's dominant credit score. Range 300–900. Above 750 = good credit. Issued by TransUnion CIBIL. Banks and NBFCs check this before approving loans. India's equivalent of FICO in the US.</div>
+            <div class="jterm"><span class="jterm-word">BNPL (Buy Now Pay Later)</span> — Short-term credit letting you buy something and pay later, often in 3–6 EMIs at zero interest. Very popular in India. ZestMoney, LazyPay, Bajaj EMI are key players.</div>
+            <div class="jterm"><span class="jterm-word">SIP (Systematic Investment Plan)</span> — Investing a fixed amount in a mutual fund every month automatically. India's standing order for investments. ₹26,000 crore flows into mutual funds via SIPs monthly.</div>
+            <div class="jterm"><span class="jterm-word">EMI (Equated Monthly Instalment)</span> — Fixed monthly payment to repay a loan over a period. Every Indian is familiar with EMIs — home loans, car loans, phone purchases.</div>
+            <div class="jterm"><span class="jterm-word">Neobank in India</span> — Unlike the UK where Monzo has its own banking license, Indian neobanks (Fi, Jupiter, Niyo) are built on partnerships with licensed banks. They provide the UX layer; the licensed bank holds the deposits. Revolut is different — it has its own PPI license and AD II license.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 5 of 6</strong> — Fintech &amp; Licenses</div>
+        <div class="nav-btns">
+          <button class="nav-btn" onclick="go(3)">← UPI &amp; India Stack</button>
+          <button class="nav-btn next" onclick="go(5)">Revolut's India Map →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 6 ═══ -->
+    <div class="chapter" id="ch5">
+      <div class="chapter-hero" data-num="06">
+        <div class="chapter-label">Chapter 06</div>
+        <div class="chapter-title">How Revolut Maps to India's System</div>
+        <div class="chapter-desc">UK playbook vs India translation. What the path looks like. Where the PMM opportunity lives.</div>
+      </div>
+
+      <div class="content">
+
+        <div class="sec">
+          <div class="sec-title">The UK playbook vs India translation</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>What Revolut did in UK/EU</th><th>India equivalent</th><th>Status</th></tr>
+              <tr><td>Started with FX card / e-money license</td><td>Started with forex card / AD II license</td><td><span class="tag-done">Done ✓ (2021–22)</span></td></tr>
+              <tr><td>Got e-money license for domestic payments</td><td>Got full PPI license for domestic prepaid card + wallet + UPI</td><td><span class="tag-done">Done ✓ (April 2025)</span></td></tr>
+              <tr><td>Integrated with domestic payment rails (Faster Payments, SEPA)</td><td>Integrated with UPI via PPI-UPI interoperability</td><td><span class="tag-wip">In Progress</span></td></tr>
+              <tr><td>Launched premium subscription tiers</td><td>Launching free, premium, metal tiers in India</td><td><span class="tag-wip">Launching</span></td></tr>
+              <tr><td>Got EU banking license via Lithuania (2018)</td><td>May apply for Payments Bank or SFB license</td><td><span class="tag-future">Future roadmap</span></td></tr>
+              <tr><td>Applied for full UK banking license (took 5 years)</td><td>Will apply for full RBI banking license eventually</td><td><span class="tag-future">Long-term</span></td></tr>
+              <tr><td>Launched lending (loans, credit cards, mortgages)</td><td>Needs NBFC license first, then banking license for full credit</td><td><span class="tag-future">Not yet</span></td></tr>
+              <tr><td>Offered FSCS-insured deposits</td><td>Will offer DICGC-insured deposits only after full banking license</td><td><span class="tag-future">Not yet</span></td></tr>
+              <tr><td>Savings vaults with interest</td><td>Need banking license or NBFC partnership — PPI cannot pay interest</td><td><span class="tag-future">Not yet</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">The competitive context — what Revolut walks into</div>
+          <p><strong>PhonePe</strong> (~47% UPI share) — Walmart-owned, 500 million registered users, also has insurance, mutual funds, and lending (PhonePe Capital). The dominant incumbent. Revolut cannot out-PhonePe PhonePe.</p>
+          <p><strong>Google Pay (~37%)</strong> — Best-in-class UX, tightly integrated with Google ecosystem. Limited to payments — no lending, no savings, no investments within the app. This gap is an opportunity.</p>
+          <p><strong>Paytm (~8%)</strong> — Struggled after RBI's January 2024 action against Paytm Payments Bank (forced to stop accepting new deposits for compliance failures). Paytm's stumble is a real opening for a credible alternative.</p>
+          <p><strong>Indian neobanks (Fi Money, Jupiter)</strong> — Targeting the same digital-native, salary-account segment. But they lack the global dimension that is Revolut's unique angle. They are not a primary threat — they are a comparison benchmark.</p>
+
+          <div class="ibox">
+            <div class="ibox-label">// The Paytm Payments Bank incident — interview context</div>
+            <p>In January 2024, RBI ordered Paytm Payments Bank to stop accepting new deposits and top-ups after finding serious compliance failures — the biggest fintech regulatory action in India. This is why Revolut has been extraordinarily careful: it localised its entire tech stack for India (the only market in the world where it did this) and worked closely with RBI for 3+ years before public launch. The Paytm lesson is present in every Revolut India decision.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">The three positioning angles for Revolut India</div>
+          <p>Revolut cannot win India by being another UPI payments app. The PMM challenge is finding the angle where Revolut's global capabilities create unique, defensible value.</p>
+          <p><strong>1. The globally-connected Indian.</strong> Students studying abroad, professionals working with global companies, frequent travelers, NRI family members managing money across borders. These people need both domestic UPI and international FX in one app. Nobody offers this seamlessly. This is Revolut's clearest right-to-win.</p>
+          <p><strong>2. The premium-aspiring urban professional.</strong> Uses Zerodha for stocks, Groww for SIPs, GPay for daily payments — currently 5 apps for one financial life. Revolut's super-app positioning could resonate deeply if the product execution matches the promise.</p>
+          <p><strong>3. The outward remittance sender.</strong> Indians sending money abroad for education, travel, investments. LRS framework is the gateway. TCS on LRS is a genuine, visible pain point. If Revolut can help users understand and optimise this, it's a real PMM message.</p>
+
+          <div class="pmm-box">
+            <div class="pmm-label">// PMM Interview Gold — say this</div>
+            <p>"Revolut's India positioning should not be 'better UPI.' That's a losing battle. It should be 'the app for Indians who live globally' — where domestic UPI and international money movement meet in one seamless experience. The 350,000-person waitlist Revolut already has is likely dominated by exactly this segment — students, professionals, frequent travelers. Start there, build depth in the global-local bridge use case, then expand to the broader mass market once trust is established."</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Everything you now know — the complete picture</div>
+          <div class="summary-card">
+            <div class="summary-title">Your India Banking &amp; Fintech 101 — complete</div>
+            <div class="summary-list">
+              <span>✓ India has 12 PSBs, 21 private banks, 44 foreign banks, 11 SFBs, 6 payments banks</span>
+              <span>✓ RBI is the central bank — sets repo rate, issues licenses, governs FEMA and forex</span>
+              <span>✓ NPCI owns UPI, RuPay, NEFT, RTGS, IMPS — the payment infrastructure India runs on</span>
+              <span>✓ SEBI regulates stocks/investments, IRDAI regulates insurance — both separate from RBI</span>
+              <span>✓ NEFT, RTGS, IMPS are the three bank transfer rails — UPI replaced daily use of all three</span>
+              <span>✓ UPI processes 16.58 billion transactions/month, 49% of all global real-time payments</span>
+              <span>✓ PhonePe + GPay + Paytm hold 92% of UPI — the habit wall Revolut must go around, not through</span>
+              <span>✓ India Stack = Aadhaar (identity) + eKYC + UPI (payments) + AA (data consent) = open banking foundation</span>
+              <span>✓ PPI license = Revolut's current status — can issue wallets, cards, UPI. Cannot lend or pay interest.</span>
+              <span>✓ AD II license = allows FX cards and cross-border remittances — held since 2022</span>
+              <span>✓ LRS = $250K/year limit on money Indians can send abroad. TCS on LRS is a PMM messaging opportunity.</span>
+              <span>✓ DICGC = India's deposit insurance, ₹5 lakh protection — only after full banking license</span>
+              <span>✓ PPI wallet cap = ₹2 lakh max balance — structural reason Revolut needs a banking license to become a salary account</span>
+              <span>✓ Revolut India path: AD II (2022) → PPI (2025) → NBFC for lending → Full banking or SFB license (multi-year)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ch-footer">
+        <div class="ch-footer-info"><strong>Chapter 6 of 6</strong> — Revolut's India Map</div>
+        <div class="nav-btns">
+          <button class="nav-btn" onclick="go(4)">← Fintech &amp; Licenses</button>
+          <button class="nav-btn next" onclick="go(0)">↺ Back to start</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mob-nav">
+  <button class="mob-tab active" onclick="go(0)">1. Banking</button>
+  <button class="mob-tab" onclick="go(1)">2. RBI</button>
+  <button class="mob-tab" onclick="go(2)">3. Money</button>
+  <button class="mob-tab" onclick="go(3)">4. UPI</button>
+  <button class="mob-tab" onclick="go(4)">5. Fintech</button>
+  <button class="mob-tab" onclick="go(5)">6. Revolut</button>
+</div>
+
+<script>
+  let currentChapter = 0;
+  const total = 6;
+  const titles = ['Banking Structure','RBI & Regulators','Money Movement','UPI & India Stack','Fintech & Licenses','Revolut\'s India Map'];
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    document.getElementById('ch' + currentChapter).classList.remove('active');
+    document.querySelectorAll('.nav-item')[currentChapter].classList.remove('active');
+    document.querySelectorAll('.mob-tab')[currentChapter].classList.remove('active');
+    currentChapter = n;
+    document.getElementById('ch' + currentChapter).classList.add('active');
+    document.querySelectorAll('.nav-item')[currentChapter].classList.add('active');
+    document.querySelectorAll('.mob-tab')[currentChapter].classList.add('active');
+    document.getElementById('prog-fill').style.width = ((currentChapter + 1) / total * 100) + '%';
+    document.getElementById('prog-text').textContent = (currentChapter + 1) + ' / ' + total;
+    document.getElementById('tb-ch').textContent = 'Chapter 0' + (currentChapter + 1);
+    document.getElementById('tb-title').textContent = titles[currentChapter];
+    document.getElementById('tb-prev').disabled = currentChapter === 0;
+    document.getElementById('tb-next').textContent = currentChapter === total - 1 ? '↺ Start' : 'Next →';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
